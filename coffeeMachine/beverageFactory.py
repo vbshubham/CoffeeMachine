@@ -1,3 +1,5 @@
+from collections import Counter
+
 from coffeeMachine.beverage import Beverage
 
 
@@ -12,3 +14,9 @@ class BeverageFactory(object):
             return Beverage(name, self.description_dct[name])
         except KeyError:
             raise ValueError(name + " is not supported")
+
+    def get_minimum_ingredients(self):
+        res = Counter()
+        for ing_dct in self.description_dct.values():
+            res |= Counter(ing_dct)
+        return res
